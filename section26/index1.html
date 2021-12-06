@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>React section26</title>
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+
+<body>
+    <h2>useStateの例</h2>
+    <div id="sampleUseState"></div>
+    <script type="text/babel">
+        const INITIAL_COUNT = 0;
+        const INITIAL_NAME = "JavaScript";
+
+        const SampleComponent = () => {
+            const [count, setCount] = React.useState(INITIAL_COUNT);
+            const [name, setName] = React.useState(INITIAL_NAME);
+
+            const countIncrement = () => setCount((prevCount) => prevCount + 1);
+            const countDecrement = () => setCount((prevCount) => prevCount - 1);
+            const countReset = () => setCount(INITIAL_COUNT);
+
+            const handleChangeName = (e) => {
+                setName(e.target.value);
+            };
+
+            return (
+                <div className="app">
+                    <p>現在のカウント数：<b>{count}</b></p>
+                    <p>countの初期値：<b>{INITIAL_COUNT}</b></p>
+                    <button onClick={countIncrement}>increment</button>
+                    <button onClick={countDecrement}>decrement</button>
+                    <button onClick={countReset}>reset</button>
+                    <p>Hello, <b>{name}</b></p>
+                    <p>nameの初期値：<b>{INITIAL_NAME}</b></p>
+                    <input type="text" onChange={handleChangeName} />
+                </div>
+            );
+        };
+
+        const domContainer = document.querySelector("#sampleUseState");
+        ReactDOM.render(<SampleComponent />, domContainer);
+    </script>
+</body>
+
+</html>
