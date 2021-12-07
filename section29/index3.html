@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>React section29</title>
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+
+<body>
+    <h2>useRefを使わない例</h2>
+    <div id="sampleNoUseRef"></div>
+    <script type="text/babel">
+        const SampleComponent = () => {
+            const [inputValue, setInputValue] = React.useState("");
+            const [text, setText] = React.useState("");
+
+            React.useEffect(() => {
+                console.log("レンダリングされました。");
+            });
+
+            const handleClick = () => {
+                setText(inputValue);
+            };
+
+            const handleChange = (e) => {
+                setInputValue(e.target.value);
+            };
+
+            const textReset = () => {
+                setText("");
+                setInputValue("");
+            };
+
+            return (
+                <React.Fragment>
+                    <input value={inputValue} onChange={handleChange} type="text" />
+                    <button onClick={handleClick}>set text</button>
+                    <button onClick={textReset}>reset text</button>
+                    <p>text: {text}</p>
+                </React.Fragment>
+            );
+        };
+
+        const domContainer = document.querySelector("#sampleNoUseRef");
+        ReactDOM.render(<SampleComponent />, domContainer);
+    </script>
+</body>
+
+</html>

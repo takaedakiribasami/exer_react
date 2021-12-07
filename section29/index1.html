@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>React section29</title>
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+
+<body>
+    <h2>useRefの例</h2>
+    <div id="sampleUseRef"></div>
+    <script type="text/babel">
+        const SampleComponent = () => {
+            const inputRefObject = React.useRef(null);
+            const handleClick = () => {
+                inputRefObject.current.focus();
+            };
+
+            return (
+                <div className="App">
+                    <input ref={inputRefObject} type="text" />
+                    <button onClick={handleClick}>入力エリアをフォーカス</button>
+                </div>
+            );
+        };
+
+        const domContainer = document.querySelector("#sampleUseRef");
+        ReactDOM.render(<SampleComponent />, domContainer);
+    </script>
+</body>
+
+</html>
