@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>React section28</title>
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+
+<body>
+    <h2>React.memoの例(React.memoを使う場合)</h2>
+    <div id="sampleMemo"></div>
+    <script type="text/babel">
+        const CountResult = React.memo(({ text, countState }) => {
+            console.log(`${text}ボタンがクリックされました`);
+            return (
+                <p>{text}：{countState}</p>
+            );
+        });
+
+        const Counter = () => {
+            const [countStateA, setCountStateA] = React.useState(0);
+            const [countStateB, setCountStateB] = React.useState(0);
+
+            const countIncrementA = () => setCountStateA((prevCountStateA) => prevCountStateA + 1);
+            const countIncrementB = function () {
+                return setCountStateB(function (prevCountStateB) {
+                    return prevCountStateB + 1;
+                });
+            };
+
+            return (
+                <React.Fragment>
+                    <CountResult text="Aボタン" countState={countStateA} />
+                    <CountResult text="Bボタン" countState={countStateB} />
+                    <button onClick={countIncrementA}>Aボタン</button>
+                    <button onClick={countIncrementB}>Bボタン</button>
+                </React.Fragment>
+            );
+        };
+
+        const domContainer = document.querySelector("#sampleMemo");
+        ReactDOM.render(<Counter />, domContainer);
+    </script>
+</body>
+
+</html>

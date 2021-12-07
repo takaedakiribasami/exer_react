@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>React section28</title>
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+
+<body>
+    <h2>useCallbackを使わない例</h2>
+    <div id="sampleNoUseCallback"></div>
+    <script type="text/babel">
+        //子コンポーネントはReact.memoでメモ化する
+        const Button = React.memo(({ countState, buttonValue }) => {
+            console.log(`${buttonValue}がクリックされました`);
+            return <button onClick={countState}>{buttonValue}</button>;
+        });
+
+        const Counter = () => {
+            const [countStateA, setCountStateA] = React.useState(0);
+            const [countStateB, setCountStateB] = React.useState(0);
+
+            const countIncrementA = () => setCountStateA(countStateA + 1);
+            const countIncrementB = () => setCountStateB((prevCountStateB) => prevCountStateB + 1);
+            return (
+                <React.Fragment>
+                    <p>Aボタン {countStateA}</p>
+                    <p>Bボタン {countStateB}</p>
+                    <Button countState={countIncrementA} buttonValue="Aボタン" />
+                    <Button countState={countIncrementB} buttonValue="Bボタン" />
+                </React.Fragment>
+            );
+        };
+
+        const domContainer = document.querySelector("#sampleNoUseCallback");
+        ReactDOM.render(<Counter />, domContainer);
+    </script>
+</body>
+
+</html>
