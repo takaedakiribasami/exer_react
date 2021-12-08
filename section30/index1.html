@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>React section30</title>
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+
+<body>
+    <h2>useContextの例</h2>
+    <div id="sampleUseContext"></div>
+    <script type="text/babel">
+        const SampleComponentObject = React.createContext();
+
+        const ConsumerComponent = () => {
+            const messageText = React.useContext(SampleComponentObject);
+            console.log(messageText);
+            return <p>{messageText}</p>;
+        };
+
+        const message = "I love React";
+
+        const App = () => {
+            return (
+                <SampleComponentObject.Provider value={message}>
+                    <ConsumerComponent />
+                </SampleComponentObject.Provider>
+            );
+        };
+
+        const domContainer = document.querySelector("#sampleUseContext");
+        ReactDOM.render(<App />, domContainer);
+    </script>
+</body>
+
+</html>

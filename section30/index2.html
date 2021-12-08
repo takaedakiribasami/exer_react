@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>React section30</title>
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+
+<body>
+    <h2>useContextの例</h2>
+    <div id="sampleUseContext"></div>
+    <script type="text/babel">
+        const TextContext = React.createContext();
+        const text = "これはProviderから渡されたテキストです。";
+
+        const TextProvider = ({ children }) => {
+            return <TextContext.Provider value={text}>{children}</TextContext.Provider>;
+        };
+
+        const App = () => {
+            return (
+                <div className="App">
+                    <TextProvider>
+                        <First />
+                    </TextProvider>
+                </div>
+            );
+        };
+
+        const First = () => {
+            return (
+                <React.Fragment>
+                    <p>Firstコンポーネント</p>
+                    <Second />
+                </React.Fragment>
+            );
+        };
+
+        const Second = () => {
+            return (
+                <React.Fragment>
+                    <p>Secondコンポーネント</p>
+                    <Third />
+                </React.Fragment>
+            );
+        };
+
+        const Third = () => {
+            const textData = React.useContext(TextContext);
+            console.log(textData);
+            return (
+                <React.Fragment>
+                    <p>Thirdコンポーネント: {textData}</p>
+                </React.Fragment>
+            );
+        };
+
+
+        const domContainer = document.querySelector("#sampleUseContext");
+        ReactDOM.render(<App />, domContainer);
+    </script>
+</body>
+
+</html>
