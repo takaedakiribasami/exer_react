@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>React section30</title>
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+
+<body>
+    <h2>カスタムフックの例</h2>
+    <div id="sampleCustom"></div>
+    <script type="text/babel">
+
+        const useCounter = (initialCount) => {
+            const [count, setCount] = React.useState(initialCount);
+            const countAdd = () => setCount((prevCount) => prevCount + 1);
+            const countSub = () => setCount((prevCount) => prevCount - 1);
+            const countReset = () => setCount(initialCount);
+            return { count, countAdd, countSub, countReset };
+        };
+
+        const CounterText = (props) => <p>現在のカウント数：{props.count}</p>
+
+        const CounterA = () => {
+            const { count, countAdd, countSub, countReset } = useCounter(0);
+            return (
+                <div className="counterContainer">
+                    <h2>カウンターA</h2>
+                    <CounterText count={count} />
+                    <button onClick={countAdd}>ボタン+1</button>
+                    <button onClick={countSub}>ボタン-1</button>
+                    <button onClick={countReset}>リセット</button>
+                </div>
+            );
+        };
+
+        const CounterB = () => {
+            const { count, countAdd, countSub, countReset } = useCounter(0);
+            return (
+                <div className="counterContainer">
+                    <h2>カウンターB</h2>
+                    <CounterText count={count} />
+                    <button onClick={countAdd}>ボタン+1</button>
+                    <button onClick={countSub}>ボタン-1</button>
+                    <button onClick={countReset}>リセット</button>
+                </div>
+            );
+        };
+
+        const App = () => {
+            return (
+                <React.Fragment>
+                    <CounterA />
+                    <CounterB />
+                </React.Fragment>
+            );
+        };
+
+        const domContainer = document.querySelector("#sampleCustom");
+        ReactDOM.render(<App />, domContainer);
+    </script>
+</body>
+
+</html>
